@@ -7,7 +7,9 @@ int main()
 {
     FILE* inputFile;
     char note[100][100];
-    inputFile = fopen("Song_Twinkle.txt","r");
+    
+    //opens a file and reads from that file *file must be in the same directory
+    inputFile = fopen("Song_Twinkle.txt","r"); 
     if (inputFile == NULL) {
         //error check for opening file
         printf("could not open file");
@@ -17,11 +19,15 @@ int main()
     char check;
     int j = 0;
     while (!feof(inputFile)) {
+        //reads first character of the line
         check = fgetc(inputFile);
         if (check == '%')
+            //skips reading the entire line
             fscanf(inputFile, "%*[^\n]");
         if (check != '%')
+            //reapplies the first character to be available to read
             ungetc(check, inputFile);
+        //reads the entire line and stores it in array note of element j
         fgets(note[j], 100, inputFile);
         printf("%s", note[j]);
         j++;
